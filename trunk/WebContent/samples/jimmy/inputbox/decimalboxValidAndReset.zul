@@ -1,0 +1,14 @@
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<decimalbox>
+		<attribute w:name="coerceFromString_"><![CDATA[
+			function (value) {
+				var val = this.$coerceFromString_(value);
+				if (val && val.error) {
+					this.setValue('');
+					return '';					
+				}
+				return value;
+			}
+			]]></attribute>
+	</decimalbox>
+</zk>

@@ -1,0 +1,42 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<zk>
+	<zscript><![CDATA[
+
+		public class Person {
+			private String _name;
+			private int _age;
+			
+			public Person(String name) {
+				super();
+				_name = name;
+			}
+			public Person(String name, int age) {
+				super();
+				_name = name;
+				_age = age;
+			}
+			
+			public String getName() {
+				return _name;
+			}	
+			
+			public void setName(String name) {
+				_name = name;
+			}
+		
+			public void setAge(int _age) {
+				this._age = _age;
+			}
+		
+			public int getAge() {
+				return _age;
+			}		
+		}
+		Person person = new Person("Jimmy");		
+	]]></zscript>
+	<label value="Your name:"/>
+	<label value="@{person.name}"/>
+	<include src="includePageAccess_page1.zul"/>
+	<label value="outer:"/>
+	<textbox value="@{person.name}"/>
+</zk>

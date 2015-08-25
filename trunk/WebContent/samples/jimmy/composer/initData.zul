@@ -1,0 +1,97 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
+<zk>
+	<zscript><![CDATA[
+		import java.util.*;
+		
+		import org.zkoss.zk.ui.Component;
+		import org.zkoss.zk.ui.Page;
+		import org.zkoss.zk.ui.metainfo.ComponentInfo;
+		import org.zkoss.zk.ui.util.GenericForwardComposer;
+		
+		public class WorkQueueController extends GenericForwardComposer {
+			
+			private List data1;
+			private List data2;
+		
+			public ComponentInfo doBeforeCompose(Page page, Component parent,
+					ComponentInfo compInfo) {
+				initData1();
+				page.setAttribute("data1", data1);
+				return super.doBeforeCompose(page, parent, compInfo);
+			}
+		
+			public void doAfterCompose(Component comp) throws Exception {
+				super.doAfterCompose(comp);
+				initData2();
+			}
+			
+			private void initData1() {
+				data1 = new ArrayList();
+				data1.add(new Person("Jimmy"));
+				data1.add(new Person("Katrina"));
+			}
+			
+			private void initData2() {
+				data2 = new ArrayList();
+				data2.add(new Person("Jimmy2"));
+				data2.add(new Person("Katrina2"));
+				desktop.setAttribute("data2", data2);
+			}
+			
+			public class Person{
+				private String name;
+				public Person(String name) {
+					super();
+					this.name = name;
+				}
+		
+				public String getName() {
+					return name;
+				}
+			}
+		}
+
+	]]></zscript>
+	<window border="none" id="workqueueWin" apply="WorkQueueController">
+		<grid mold="paging" model="@{data1}">
+			<columns>
+				<column label="data binding (init at doBeforeCompose)"/>
+			</columns>
+			<rows >
+				<row self="@{each=person}">
+					<toolbarbutton label="@{person.name}"/>
+				</row>
+			</rows>
+		</grid>
+		<grid >
+			<columns>
+				<column label="EL (init at doBeforeCompose)"/>
+			</columns>
+			<rows>
+				<row  forEach="${data1}" >
+					<toolbarbutton label="${each.name}" />
+				</row>
+			</rows>
+		</grid>
+		<grid mold="paging" model="@{data2}">
+			<columns>
+				<column label="data binding (init at doAfterCompose)"/>
+			</columns>
+			<rows >
+				<row self="@{each=person}">
+					<toolbarbutton label="@{person.name}"/>
+				</row>
+			</rows>
+		</grid>
+		<grid >
+			<columns>
+				<column label="EL (init at doAfterCompose) !can't retrive data"/>
+			</columns>
+			<rows>
+				<row  forEach="${data2}" >
+					<toolbarbutton label="${each.name}" />
+				</row>
+			</rows>
+		</grid>
+	</window>
+</zk>

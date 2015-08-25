@@ -1,0 +1,42 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="http://www.zkoss.org/2005/zk/native">
+	<label multiline="true"><zscript><![CDATA[ ]]></zscript>
+		<attribute name="value">
+			<![CDATA[ 
+			Demo how to include/embed svg to page
+
+			1. in zk.xml, add setting 
+				<language-mapping>
+					<language-name>xml</language-name>
+				<extension>svg</extension> </language-mapping> 
+			2. in web.xml, add setting
+				<servlet-mapping>
+					<servlet-name>zkLoader</servlet-name>
+					<url-pattern>*.svg</url-pattern>
+				</servlet-mapping>
+			
+			3. use native name space
+				xmlns:n="http://www.zkoss.org/2005/zk/native"
+			4. use native html to embed svg: embed, object, iframe
+			
+			Note. need zml.jar, zhtml.jar
+			]]>
+		</attribute>
+	</label>
+	<window title="Use embed" border="normal" width="300px"
+		height="300px">
+		<n:embed src="./svgWithZscript.svg" height="100%"
+			width="100%">
+		</n:embed>
+	</window>
+	<window title="Use object" border="normal" width="300px"
+		height="300px">
+		<n:object data="./svgWithZscript.svg" height="100%"
+			width="100%">
+		</n:object>
+	</window>
+	<window title="Use iframe" border="normal" width="300px"
+		height="300px">
+		<iframe src="./svgWithZscript.svg" height="100%" width="100%"></iframe>
+	</window>
+</zk>

@@ -1,0 +1,35 @@
+#summary How to use sample code collection
+#labels Phase-Requirements
+<wiki:toc max_depth="2" />
+= How to use this sample code collection =
+== Get The Code ==
+ # Checkout the code by SVN
+{{{
+svn checkout https://zk-sample-code.googlecode.com/svn/trunk/ zk-sample-code
+}}}
+
+== Setup your Environment ==
+ * J2EE Develope Tools
+   * *Eclipse with WTP*
+   * *[http://tomcat.apache.org/ Tomcat 5.5+]* 
+   * *[http://www.zkoss.org/download/zk.dsp ZK Library]*
+ * With ZK Studio or create Project Manual
+==== ZK Studio ====
+ # Get[http://www.zkoss.org/download/zkstudio.dsp ZK Studio] (Official Site)
+ # Create Project
+   # *Window* -> *Preference*, Choose *ZK* -> *ZK Packages* (In Eclipse Menu Bar)
+     * Add Your ZK Library 
+   # *File* -> *New* -> *Other* -> ZK Project (In Eclipse Menu Bar)
+     * Choose the ZK Version you installed  
+==== Manual ====
+ # Create Project
+   # *Window* -> *Preference*, Choose *ZK* -> *ZK Packages* (In Eclipse Menu Bar)
+     * Add Your ZK Library 
+   # *File* -> *New* -> *Other* -> ZK Project (In Eclipse Menu Bar)
+     * Choose the ZK Version you installed  
+
+== Config The Project ==
+ # Copy/Link from the repository */src* in your *Projrct/src* folder or Include it in your build path
+ # Link/Include all folders under */WebContent* in your *Project/WebContent* folder
+
+== Enjoy !! ==

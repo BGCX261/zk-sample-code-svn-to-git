@@ -1,0 +1,4 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk>
+	<datebox value="${c:new('java.util.Date')}"/>
+</zk>

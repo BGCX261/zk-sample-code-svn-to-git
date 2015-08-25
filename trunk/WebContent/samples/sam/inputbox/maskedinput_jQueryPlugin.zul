@@ -1,0 +1,17 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<div style="margin: 10px;">
+		<label multiline="true">
+			Demo jQuery plug: Masked Input Plugin
+			http://digitalbush.com/projects/masked-input-plugin/
+		</label>
+	</div>
+	<?script src="./js/jquery.maskedinput-1.2.2.js" ?>
+	<window title="Set mask from client">
+		<textbox id="txmasked">
+			<attribute w:name="onBind">
+				jq(this).mask("99.999.999/9999-99");
+			</attribute>
+		</textbox>
+	</window>
+</zk>

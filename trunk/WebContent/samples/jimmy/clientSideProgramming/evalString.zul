@@ -1,0 +1,22 @@
+<window id="win" border="normal" width="600px" xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<textbox id="textToEval" value ="1+2"  onChanging="resultLabel.value=event.value"/>
+	<label value=" Hello ZKalkulator! Just try to edit expression in the text field to get result..." id="resultLabel">
+	            <attribute w:name="setValue"><![CDATA[
+		            function (value) {
+		                  this.$setValue(value); //call the original method
+		                  if (this.desktop) {
+		                        this._flag = !this._flag;
+		                        this.setStyle('background:'+(this._flag ? 'red':'green'));
+		                        var value;
+		
+		                        try{
+		                           value  =  eval ( ''+value+'');
+		                        }catch(e){}
+		
+		
+		                        this.$setValue(value) ;
+		                   }
+		            }
+	            ]]></attribute>
+	</label>
+</window>

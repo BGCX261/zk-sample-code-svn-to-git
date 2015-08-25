@@ -1,0 +1,8 @@
+<vbox id="${arg.id}">
+    <hbox>
+        First Name: <textbox id="mc_firstName" value="${arg.firstName}"/>
+    </hbox>
+    <hbox>
+        Last Name: <textbox value="${arg.lastName}"/>
+    </hbox>
+</vbox>

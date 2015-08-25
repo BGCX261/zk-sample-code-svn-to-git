@@ -1,0 +1,11 @@
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<script type="text/javascript" src="jquery.watermarkinput.js"/>
+	<textbox>
+		<attribute w:name="bind_">
+			function () { 
+				this.$bind_(); 
+				jq(this).Watermark("Suffix","grey");
+			}
+		</attribute>
+	</textbox>
+</zk>

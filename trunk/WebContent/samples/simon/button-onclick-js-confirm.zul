@@ -1,0 +1,30 @@
+<?page title="Button onClick Client Side Confirm" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<window title="Button onClick Client Side Confirm" border="normal">
+		<label id="lb" />
+		<checkbox id="cb" label="Stop Event" checked="true" />
+		<button label="Go" onClick='lb.value="Clicked!"'>
+			<attribute w:name="onClick"><![CDATA[
+				if(this.$f('cb').isChecked()) {
+					event.stop();
+				}
+			]]></attribute>
+		</button>
+	</window>
+</zk>
+
+<!--
+	
+	2010/08/30 (Mon)
+	Simon
+	
+	This zul shows how to stop event propagation on client side.
+	
+	See also:
+		Stop propagation
+		http://www.zkoss.org/forum/listComment/13569
+	
+	Version 
+		5.0.4 CE
+	
+-->

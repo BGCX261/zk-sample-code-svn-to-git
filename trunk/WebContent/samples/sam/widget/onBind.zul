@@ -1,0 +1,11 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:w="client">
+<div width="300px" height="200px">
+	<attribute w:name="onBind" style="background: yellow">
+		var n = this.$n();
+		zk.log("width: " + jq(n).css('width'));
+		zk.log("height: " + jq(n).css('height'));
+		jq(n).css('background', 'purple');
+	</attribute>
+</div>
+</zk>

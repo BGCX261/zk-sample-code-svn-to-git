@@ -1,0 +1,44 @@
+<zk>
+    <zscript><![CDATA[
+   
+        import java.util.*;        
+        import org.zkoss.zul.*;
+        import  org.zkoss.zk.ui.event.*;
+        
+        int level1 = 2;
+        int level2 = 1560;
+        int level3 = 10;
+                         
+                         
+        ArrayList al = new ArrayList();
+        for(int i =0; i < level1; i++){
+            ArrayList list = new ArrayList();
+            for(int j =0; j < level2; j++){
+                ArrayList list2 = new ArrayList();
+                for(int k =0; k < level3; k++){
+                    list2.add(new SimpleTreeNode("grandson " + k, new ArrayList()));
+                }
+                list.add(new SimpleTreeNode("child " + j, list2));
+            }
+            al.add(new SimpleTreeNode("item "+ i, list));
+        }
+        SimpleTreeModel stm = new SimpleTreeModel(new SimpleTreeNode("ROOT",al));
+   
+        TreeitemRenderer render = new TreeitemRenderer() {
+        	public void render(Treeitem item, Object data) throws Exception {
+        		SimpleTreeNode t = (SimpleTreeNode)data;
+        		String s = (String)t.getData();
+        		item.setLabel(s);
+        		item.addEventListener("onOpen",  new org.zkoss.zk.ui.event.EventListener() {					
+        			public void onEvent(Event event) throws Exception {
+        				event.getTarget().invalidate();
+        			}
+        		});
+        	}
+
+        }
+
+        
+    ]]></zscript>
+    <tree model="${stm}" treeitemRenderer="${render}" width="300px"/>
+</zk>

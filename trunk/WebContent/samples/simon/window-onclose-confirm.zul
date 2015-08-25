@@ -1,0 +1,26 @@
+<zk>
+	<window title="win" border="normal" width="200px" height="200px" closable="true">
+		<attribute name="onClose"><![CDATA[
+			if(Messagebox.show("Are you sure to close the window?", "Question",
+        		Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION) != Messagebox.OK){
+				event.stopPropagation();
+			}
+		]]></attribute>
+	</window>
+</zk>
+
+<!--
+	
+	2010/08/25 (Wed)
+	Simon
+	
+	This zul shows how to do a confirmation dialog upon Window onClose.
+	
+	See Also:
+		how to catch onclose event from a modal window
+		http://www.zkoss.org/forum/listComment/13515
+	
+	Version:
+		5.0.4 CE 
+	
+-->

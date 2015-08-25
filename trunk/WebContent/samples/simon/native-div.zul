@@ -1,0 +1,19 @@
+<?page title="Native Div" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="http://www.zkoss.org/2005/zk/native">
+	<n:div style="width:200px; height:200px; background:#88CCFF">Div Content</n:div>
+</zk>
+
+<!--
+	
+	2010/08/04
+	Simon
+	
+	This zul shows how to use ZK native namespace.
+	
+	Version:
+		ZK 5.0.3 CE
+	
+	Keyword:
+		*native, *html 
+	
+-->

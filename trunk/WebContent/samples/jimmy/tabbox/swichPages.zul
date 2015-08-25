@@ -1,0 +1,27 @@
+<zk>
+	<window width="500px" height="500px">
+		<zscript><![CDATA[
+			void changPage(Tab tab) {
+				List children = center.getChildren();
+				if (children != null)
+					children.clear();
+				Executions.createComponents("swichPages_"+tab.getLabel() + ".zul", center, null);
+			}
+		]]></zscript>
+		<borderlayout>
+			<west>
+				<tabbox orient="vertical" id="tabbox" tabscroll="false">
+					<tabs width="100px">
+						<tab label="page1" onClick="changPage(self)" />
+						<tab label="page2" onClick="changPage(self)" />
+					</tabs>
+				</tabbox>
+			</west>
+			<center id="center">
+				<attribute name="onCreate"><![CDATA[                          
+					Executions.createComponents("swichPages_"+tabbox.getSelectedTab().getLabel() + ".zul", center, null);
+				]]></attribute>
+			</center>
+		</borderlayout>
+	</window>
+</zk>

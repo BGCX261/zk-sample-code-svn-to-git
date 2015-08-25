@@ -1,0 +1,32 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<label multiline="true">
+	<attribute name="value">
+		To set selected index using model, need to using onAfterRender event, and need to use ListModelList
+		
+		If use SimpleListModel, it won't renderer item, because SimpleListModel is design to use auto-complete, 
+		it will renderer items after you type
+	</attribute>
+</label>
+<zscript><![CDATA[
+List ary = new ArrayList();
+for (int i = 0; i < 10; i++) {
+	ary.add("com " + i);
+}
+SimpleListModel simpleModel = new SimpleListModel(ary);
+ListModelList listModel = new ListModelList(ary);
+]]></zscript>
+<combobox model="${simpleModel}">
+	<attribute name="onAfterRender">
+		System.out.println("simpleModel size: " + self.getItemCount());
+		//self.setSelectedIndex(5);
+	</attribute>
+</combobox>
+<combobox model="${listModel}">
+	<attribute name="onAfterRender">
+		//use listModel has correct size
+		System.out.println("listModel size: " + self.getItemCount());
+		self.setSelectedIndex(5);
+	</attribute>
+</combobox>
+</zk>

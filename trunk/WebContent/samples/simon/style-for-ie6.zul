@@ -1,0 +1,33 @@
+<?page title="Style Loaded For IE 6" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style>
+		.mylabel {
+			color: green;
+		}
+	</style>
+	<style if='${execution.explorer and !execution.explorer7}'>
+		.mylabel {
+			color: red;
+		}
+	</style>
+	<window title="Style Loaded For IE 6" border="normal" width="300px" height="300px">
+		<label sclass="mylabel" value="Label" />
+	</window>
+</zk>
+
+<!--
+	
+	2010/07/28
+	Simon
+	
+	This zul shows how to specify different style depending on browser type.
+	This is especially useful when you need to use GIF background images only
+	for IE 6.
+	
+	Version:
+		ZK 5.0.3
+	
+	Keyword:
+		*css, *browser, *ie6
+	
+-->

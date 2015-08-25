@@ -1,0 +1,20 @@
+<zk>
+	<div id="div" width="300px" height="300px"/>
+	<button label="add include">
+		<attribute name="onClick"><![CDATA[
+			Include include = new Include();
+			include.setParent(div);
+			include.setDynamicProperty("name","katrina");
+			include.setSrc("/jimmy/include/passParamByUrlToJSP_page1.jsp" + "?engNo=" + 10 + "&engType=Jimmy");
+		]]></attribute>
+	</button>
+	
+	<div id="div2" width="300px" height="300px"/>
+	<button label="add include ion iframe">
+		<attribute name="onClick"><![CDATA[
+			Iframe iframe = new Iframe();
+			iframe.setParent(div2);
+			iframe.setSrc("/jimmy/include/passParamByUrlToJSP_page1.jsp" + "?engNo=" + 10 + "&engType=Jimmy");
+		]]></attribute>
+	</button>
+</zk>

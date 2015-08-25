@@ -1,0 +1,7 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk>
+	<label value="Gecko" if="${execution.gecko}" />
+	<label value="IE" if="${execution.explorer}" />
+	<label value="IE8" if="${c:browser('ie8-')}" />
+	<label value="IE7" if="${execution.explorer7}" />
+</zk>

@@ -1,0 +1,17 @@
+<zk>
+	<zscript><![CDATA[
+		public void check() {
+			System.out.println(lb.getSelectedCount());
+			if (lb.getSelectedCount() == 0) {
+				throw new WrongValueException(lb, "please select 1 item");
+			}
+			//do submit
+		}
+	]]></zscript>
+	<listbox id="lb" multiple="false" checkmark="true" width="200px">
+		<listitem label="A" />
+		<listitem label="B" />
+		<listitem label="C" />
+	</listbox>
+	<button label="submit" onClick="check();" />
+</zk>

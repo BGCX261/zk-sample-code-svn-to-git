@@ -1,0 +1,47 @@
+<window id="wnd" title="Bookmark Demo" width="400px" border="normal">
+    <zscript>
+     page.addEventListener("onBookmarkChange",
+         new org.zkoss.zk.ui.event.EventListener() {
+             public void onEvent(Event event) throws UiException {
+                 try {
+                     wnd.getFellow(wnd.desktop.bookmark).setSelected(true);
+                 } catch (ComponentNotFoundException ex) {
+                     tab1.setSelected(true);
+                 }
+             }
+         });
+    </zscript>
+ 
+    <tabbox id="tbox" width="100%" onSelect="desktop.bookmark = self.selectedTab.id">
+        <tabs>
+            <tab id="tab1" label="Tab 1"/>
+            <tab id="tab2" label="Tab 2"/>
+            <tab id="tab3" label="Tab 3"/>
+        </tabs>
+        <tabpanels>
+            <tabpanel>This is panel 1</tabpanel>
+            <tabpanel>This is panel 2</tabpanel>
+            <tabpanel>This is panel 3</tabpanel>
+        </tabpanels>
+    </tabbox>
+</window>
+
+<!--
+	
+	2010/09/01 (Wed)
+	Simon
+	
+	A good example to show how to manipulate browser bookmark, obtained from 
+	the guide.
+	
+	Version
+		ZK 5.0.4
+	
+	See Also
+		Browser Management
+		http://docs.zkoss.org/wiki/Browser_Management
+		
+		onBookmarkChange in various Browsers
+		http://www.zkoss.org/forum/listComment/13585
+	
+-->

@@ -1,0 +1,4 @@
+<row forEach="${arg.data}" value="${each}">
+	<label value="${each.name}"></label>
+	<label value="${each.age}"></label>
+</row>

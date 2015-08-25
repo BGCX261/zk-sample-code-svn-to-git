@@ -1,0 +1,44 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<zk>
+<zscript><![CDATA[
+
+class Combo2 extends Combobox {
+	public void onAfterRender() {
+		System.out.println("Combo2 onAfterRender size: " + this.getItemCount());
+		this.setSelectedIndex(5);
+	}
+}
+                  
+class MyComposer extends org.zkoss.zk.ui.util.GenericForwardComposer {
+	Combobox combo1;
+	Combobox combo2;
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		
+		//when use model on combo, combo item is created "onAfterRender".
+		//in doAfterCompose, not created yet.
+		System.out.println("combo1 size: " + combo1.getItemCount());
+		System.out.println("combo2 size: " + combo2.getItemCount());
+		
+		//Register onAfterRender event
+		combo1.addEventListener("onAfterRender", new org.zkoss.zk.ui.event.EventListener(){
+			
+			public void onEvent(Event event) throws Exception{
+				System.out.println("Combo1 onAfterRender size: " + combo1.getItemCount());
+				combo1.setSelectedIndex(5);	
+			}
+		});
+	}
+}
+
+List ary = new ArrayList();
+for (int i = 0; i < 10; i++) {
+	ary.add("item" + i);
+}
+]]></zscript>
+<window title="Set selected comboitem" border="normal" apply="MyComposer">
+	<combobox id="combo1" model="@{ary}"></combobox>
+	<combobox id="combo2" model="@{ary}" use="Combo2"></combobox>
+</window>
+</zk>

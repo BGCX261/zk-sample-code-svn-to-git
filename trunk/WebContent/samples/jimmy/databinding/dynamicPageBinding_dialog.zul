@@ -1,0 +1,8 @@
+<window id="dialogWin" title="User" border="normal" mode="modal">
+	<label value="Name:" />
+	<textbox value="@{user.name}"/>
+	<separator/>
+	<label value="Age:" />
+	<intbox value="@{user.age}"/>
+	<button label="OK" xmlns:w="http://www.zkoss.org/2005/zk/client" w:onClick="this.$f('dialogWin').fire('onClose');"/>
+</window>

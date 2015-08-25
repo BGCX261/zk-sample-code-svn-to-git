@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<window sclass="myWin" border="none" draggable="canvas" minheight="16" minwidth="16" sizable="true" onClick="select(self)" onSize="resize(event)">
+	<style>
+		.z-window-embedded-cnt {
+			padding:0;
+		}
+	</style>
+	<zscript><![CDATA[
+		public void resize(Event event) {
+			Window obj = (Window)event.getTarget();
+			Image image = obj.getFellow("image");
+			image.setWidth(obj.getWidth());
+			image.setHeight(obj.getHeight());
+		}
+		
+		public void select(Window current) {
+			Div canvas = (Div)current.getParent();
+			List children = canvas.getChildren();
+			for (int i=0; i<children.size(); i++) {
+				Window obj = (Window)children.get(i);
+				obj.setBorder("none");
+				obj.setStyle("position:absolute;padding:1px;");
+			}
+			current.setBorder("normal");
+			current.setStyle("position:absolute;padding:0px;");
+		}
+	
+		]]></zscript>
+
+	<image id="image"/>	
+</window>

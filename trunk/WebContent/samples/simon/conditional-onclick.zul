@@ -1,0 +1,41 @@
+<zk>
+	<script defer="true"><![CDATA[
+var old = zul.sel.Treecol.prototype.doClick_;
+zul.sel.Treecol.prototype.doClick_ = function(evt){
+	var n = evt.domTarget;
+	if (n.id && !n.id.endsWith("-cave")) return;
+	old.apply(this, arguments);
+};
+	]]></script>
+	<window title="Conditional onClick" border="normal" width="300px" height="300px">
+		<tree id="explorerTree" height="200px" width="100%" visible="true"
+			fixedLayout="false">
+			<treecols sizable="true">
+				<treecol id="treeHeader1" label="Treecol 1" width="60px" onClick='alert("col 1");'/>
+				<treecol id="treeHeader2" label="Treecol 2" width="60px" onClick='alert("col 2");'/>
+				<treecol id="treeHeader3" label="Treecol 3" width="60px" onClick='alert("col 3");'/>
+			</treecols>
+		</tree>
+		<label>Note: When clicking around the border of Treecol, onClick should not trigger.</label>
+	</window>
+</zk>
+
+<!--
+	
+	2010/07/07
+	Simon
+	
+	This zul shows how to use client side programming to intercept/filter the 
+	onClick Event on a part (some children DOM elements) of component. 
+	
+	See also:
+		Problem with onclick event and change size with treecol
+		http://www.zkoss.org/forum/listComment/12916/
+	
+	Version:
+		ZK 5.0.3 CE
+	
+	Keyword:
+		*onClick, *intercept
+	
+-->

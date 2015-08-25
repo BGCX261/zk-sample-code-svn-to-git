@@ -1,0 +1,57 @@
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<?script src="./js/jquery.maskedinput-1.2.2.js" ?>
+	<zscript><![CDATA[
+	class MyComposer extends org.zkoss.zk.ui.util.GenericForwardComposer {
+		Textbox mask;
+		public void doAfterCompose(Component comp) throws Exception {
+			super.doAfterCompose(comp);
+			
+			//set mask from server
+			Clients.evalJavaScript("setMask('" + mask.getUuid() + "', '" + getMask() + "')");
+		}
+		
+		public String getMask() {
+			return "999.999/9999-99";
+		}
+	}
+	]]></zscript>
+	
+	<script type="text/javascript">
+		function setMask(uuid, mask) { 
+			var wgt = zk.Widget.$(uuid);
+			jq(wgt.getInputNode()).mask(mask); 
+		} 
+	</script>
+	<window id="win" title="Demo maskedinput " border="normal" apply="MyComposer">
+		<label multiline="true">
+			<attribute name="value"><![CDATA[
+				Demo using jquery plugin
+				http://digitalbush.com/projects/masked-input-plugin/
+
+				Include javascript by
+				<?script src="xxx" ?>
+				]]></attribute>
+		</label>
+		
+		<div height="30px"></div>
+		Set mask when onBind event
+		<textbox>
+			<attribute w:name="onBind">
+				jq(this.getInputNode()).mask("999.999/9999-99");
+			</attribute>
+		</textbox>
+		
+		<div height="30px"></div>
+		Set mask by EL databinding
+		<textbox>
+			<attribute w:name="onBind">
+				jq(this.getInputNode()).mask('${win$composer.mask}');
+			</attribute>
+		</textbox>
+		
+		<div height="30px"></div>
+		Set mask from server
+		<textbox id="mask">
+		</textbox>
+	</window>
+</zk>

@@ -1,0 +1,73 @@
+<zk>
+	<zscript><![CDATA[
+		public class Person {
+			private String _name;
+			private int _age;
+			
+			public Person(String name, int age) {
+				super();
+				this._name = name;
+				this._age = age;
+			}
+			
+			public String getName() {
+				return this._name;
+			}	
+			
+			public void setName(String name) {
+				this._name = name;
+			}		
+			public int getAge() {
+				return this._age;
+			}	
+			
+			public void setAge(int age) {
+				this._age = age;
+			}	
+		}
+		
+		List data = new ArrayList();
+		data.add(new Person("Jimmy", 26));
+		data.add(new Person("Katrina", 23));
+		data.add(new Person("John", 29));
+		data.add(new Person("Kevin", 22));
+		data.add(new Person("Stive", 31));
+		data.add(new Person("Sue", 28));
+		data.add(new Person("Joe", 21));
+		data.add(new Person("Tony", 19));
+		data.add(new Person("Olive", 33));
+		data.add(new Person("Mary", 26));		
+		
+		public void replaceRow(){
+			Map datas = new HashMap();
+			datas.put("data", data);		
+			Rows rows = data_sensor.getRows();
+			rows.getChildren().clear();
+			Executions.createComponents("updateRowData_row.zul", rows, datas);
+			data_sensor.invalidate();
+		}
+		
+	]]></zscript>
+	<label value="name: " /><textbox id="nameTb" value="Jimmy" /><separator />
+	<label value="new name: " /><textbox id="newNameTb" /><space />
+	<button id="save" label="save">
+		<attribute name="onClick"><![CDATA[	
+			for(Object obj: data){
+				Person person = (Person)obj;
+				if(person.getName().equalsIgnoreCase(nameTb.getValue()))
+					person.setName(newNameTb.getValue());
+			}
+			replaceRow();
+			]]></attribute>
+	</button>
+
+	<separator />
+	<grid id="data_sensor" mold="paging" pageSize="5" width="300px" onCreate="replaceRow()">
+		<columns sizable="true">
+			<column label="name" />
+			<column label="age" />
+		</columns>
+		<rows width="200"/>
+	</grid>
+
+</zk>

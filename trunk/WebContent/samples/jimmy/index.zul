@@ -1,0 +1,165 @@
+<zk>
+	<zscript><![CDATA[
+		import java.io.*;
+		import java.util.*;
+		import org.zkoss.zk.ui.Component;
+		import org.zkoss.zk.ui.Executions;
+		import org.zkoss.zk.ui.util.GenericForwardComposer;
+		import org.zkoss.zul.*;
+		
+		public class Composer extends GenericForwardComposer {
+			
+			private String pagePath = "";
+			private String url = "";
+			private String[] excludeFolders = {"WEB-INF","META-INF"};
+			private String[] excludeFiles = {"timeout.zul"};
+			private String[] includeFileExtensions = {"zul"};
+			private Map escapeMap = new HashMap();
+			private Map rootFolderMap = new TreeMap();
+			
+			private Tree tree;
+			private Div cntDiv;
+			private Label srcCnt;
+			
+			public void doAfterCompose(Component comp) throws Exception {
+				super.doAfterCompose(comp);
+				tree = (Tree)comp.getFellow("tree");
+				cntDiv = (Div)comp.getFellow("cntDiv");
+				srcCnt = (Label)comp.getFellow("srcCnt");
+				
+				for (int i = 0, j = excludeFolders.length; i < j; i++)
+					escapeMap.put(excludeFolders[i], "");
+				for (int i = 0, j = excludeFiles.length; i < j; i++)
+					escapeMap.put(excludeFiles[i], "");
+				for (int i = 0, j = includeFileExtensions.length; i < j; i++)
+					escapeMap.put(includeFileExtensions[i], "");
+				
+				
+				pagePath = page.getRequestPath();
+				escapeMap.put(pagePath.substring(pagePath.lastIndexOf("/") + 1), "");
+				pagePath = pagePath.substring(0, pagePath.lastIndexOf("/") + 1);
+				
+				processFolder(pagePath, rootFolderMap);
+		
+				tree.setTreeitemRenderer(new TreeitemRenderer() {
+					public void render(Treeitem item, Object data) throws Exception {
+						Map.Entry entry = (Map.Entry)((SimpleTreeNode)data).getData();
+						item.setLabel(String.valueOf(entry.getKey()));
+						Object value = entry.getValue();
+						if (value instanceof String)
+							item.setValue(value);
+					}
+				});
+				
+				tree.setModel(new SimpleTreeModel(new SimpleTreeNode("ROOT",initTreeModel(rootFolderMap, new ArrayList()))));
+			}
+		
+			
+			private List initTreeModel(Map parentFolderMap, List list) {
+				for (Iterator it = parentFolderMap.entrySet().iterator(); it.hasNext();) {
+					Map.Entry entry = (Map.Entry)it.next();
+					Object key = entry.getKey();
+					Object value = entry.getValue();
+					
+					if (value instanceof Map) {
+						Map map = (Map) value;
+						if (map.size() == 0) continue;
+						ArrayList al = new ArrayList();
+						list.add(new SimpleTreeNode(entry, al));
+						initTreeModel(map, al);
+					} else {
+						list.add(new SimpleTreeNode(entry, new ArrayList()));
+					}
+				}
+				return list;
+			}
+			private Map processFolder(String path,Map parentFolderMap) {
+				for (Object obj : application.getResourcePaths(path)) {
+					String pagePath = String.valueOf(obj);
+					
+					if (pagePath.endsWith("/")) {
+						String folderName = pagePath.substring(0, pagePath.length() - 1);
+						folderName = folderName.substring(folderName.lastIndexOf("/") + 1);
+						if (escapeMap.get(folderName) != null)
+							continue;
+						parentFolderMap.put(folderName, processFolder(pagePath, new TreeMap()));
+					} else {
+						String fileName = pagePath.substring(pagePath.lastIndexOf("/") + 1);
+						String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+						if (escapeMap.get(fileName) != null || escapeMap.get(extension) == null)
+							continue;
+						parentFolderMap.put(fileName, pagePath);
+					}
+				}
+				return parentFolderMap;
+			}
+			public void onSelect$tree(){
+				cntDiv.getChildren().clear();
+				Treeitem item = tree.getSelectedItem();
+				Object val = item.getValue();
+				if (val == null) return;
+				url = String.valueOf(val);
+				Executions.createComponents(url, cntDiv, null);
+				showSource(url);
+			}
+			
+			private void showSource(String url) {
+				StringBuffer contents = new StringBuffer();
+				BufferedReader reader = null;
+		
+				try {
+					reader = new BufferedReader(new FileReader(new File(application.getRealPath(url))));
+					String text = null;
+		
+					// repeat until all lines is read
+					while ((text = reader.readLine()) != null) {
+						contents.append(text).append(
+								System.getProperty("line.separator"));
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (reader != null) {
+							reader.close();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				srcCnt.setValue(contents.toString());
+			}
+			public void onClick$openBtn(){
+				if (!"".equals(url))
+					Executions.getCurrent().sendRedirect(url, "_blank");
+			}
+		}
+	]]></zscript>
+	<borderlayout apply="Composer">
+		<west size="30%">
+			<div>
+				<button id="openBtn" label="open in a new tab"/>
+				<tree id="tree" />
+			</div>
+		</west>
+		<center autoscroll="true">
+			<tabbox>
+				<tabs>
+					<tab label="Demo"/>
+					<tab label="View Source"/>
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<div id="cntDiv" />
+					</tabpanel>
+					<tabpanel>
+						<label id="srcCnt" multiline="true" pre="true"/>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+
+		</center>
+	</borderlayout>
+</zk>

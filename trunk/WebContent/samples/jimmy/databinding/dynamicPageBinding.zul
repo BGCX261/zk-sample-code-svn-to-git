@@ -1,0 +1,70 @@
+<zk>
+	<zscript><![CDATA[
+		import org.zkoss.zk.ui.Component;
+		import org.zkoss.zk.ui.Executions;
+		import org.zkoss.zk.ui.event.Event;
+		import org.zkoss.zk.ui.event.EventListener;
+		import org.zkoss.zk.ui.util.GenericForwardComposer;
+		import org.zkoss.zkplus.databind.AnnotateDataBinder;
+		import org.zkoss.zul.*;
+		
+		public class Composer extends GenericForwardComposer {
+			private Div div;
+			private AnnotateDataBinder binder;
+			private String dialogPage = "dynamicPageBinding_dialog.zul"; 
+			
+			public void doAfterCompose(Component comp) throws Exception {
+				super.doAfterCompose(comp);
+				div = (Div) comp.getFellow("div");
+				User user = new User("Jimmy", 26);
+				binder = new AnnotateDataBinder(div);
+				binder.bindBean("user", user);
+				binder.loadAll();
+			}
+			
+			public void onClick$btn(){
+				Window dialogWin = (Window) Executions.createComponents(dialogPage, div, null);
+				binder.init(div, true);
+				binder.loadComponent(div);
+				dialogWin.addEventListener("onClose", new EventListener() {
+					public void onEvent(Event event) throws Exception {
+						binder.saveAll();
+					}
+				});
+			}
+			
+			public class User{
+				private String name;
+				private int age;
+				public User(String name, int age) {
+					super();
+					this.name = name;
+					this.age = age;
+				}
+				public String getName() {
+					return name;
+				}
+				public void setName(String name) {
+					this.name = name;
+				}
+				public int getAge() {
+					return age;
+				}
+				public void setAge(int age) {
+					this.age = age;
+				}
+			}
+		}
+
+	]]></zscript>
+	<window apply="Composer">
+		<div id="div">
+			<label value="Name:" />
+			<label value="@{user.name}" />
+			<separator />
+			<label value="Age:" />
+			<label value="@{user.age}" />
+		</div>
+		<button label="dialog" id="btn" />
+	</window>
+</zk>

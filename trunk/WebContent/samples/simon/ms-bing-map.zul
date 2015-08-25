@@ -1,0 +1,28 @@
+<?page title="Bing Map" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<?script charset="UTF-8" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3&mkt=en-us"?>
+	<window title="Bing Map" border="normal" height="380px" width="380px">
+		<h:div id="myMap" style="width:320px; height:320px; position:relative;">
+			<attribute w:name="onBind">
+				var map = new VEMap('myMap');
+				map.LoadMap();
+			</attribute>
+		</h:div>
+	</window>
+</zk>
+
+<!--
+	
+	2010/08/04
+	Sam
+	
+	This zul shows how to bind a Microsoft Bing Map object on the page.
+	
+	Version:
+		ZK 5.0.3 CE
+	
+	Keyword:
+		*bing, *bingmap, *map
+	
+-->

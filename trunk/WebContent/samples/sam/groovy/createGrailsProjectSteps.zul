@@ -1,0 +1,32 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<label multiline="true">
+	Refer to 
+	http://grails.org/Installation
+	http://code.google.com/p/zkgrails/
+	http://docs.zkoss.org/wiki/Implementing_Load-on-Demand_using_ZK_and_Grails
+	
+	1. Install Grails on Windows, fellow steps on http://grails.org/Installation
+		* extract zip to a folder, for example: C:\grails\grails-1.3.4
+		* add GRAILS_HOME system environment, for example
+			Variable name: GRAILS_HOME
+			Variable value: C:\grails\grails-1.3.4
+		* edit system environment "Path", add the bin path of grails in your computer, for example: 
+			%GRAILS_HOME%\bin;
+		* set JAVA_HOME system environment if not setup yet
+		* type grails in command line see if it work
+
+	2. Install ZKGrails
+		* Create a project called hello
+		* in hello\grails-app\conf\BuildConfig.groovy add these
+			grails.plugin.repos.discovery.zkgrails="http://zkgrails.googlecode.com/svn/plugins"
+			grails.plugin.repos.resolveOrder=['zkgrails','default','core']
+		* in command line type, in hello project folder
+			$ grails install-plugin zk
+			$ grails install-plugin zk-ee
+	3. create zul in command line
+			$ grails create-zul index
+	4. run app
+			$ grails run-app
+</label>
+</zk>

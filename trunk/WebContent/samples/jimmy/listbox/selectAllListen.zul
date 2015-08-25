@@ -1,0 +1,31 @@
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<listbox multiple="true" checkmark="true">
+		<listhead>
+			<listheader label="Name" onUser='alert(org.zkoss.lang.Objects.toString(event.data));'>
+				  <attribute w:name="_doClick"><![CDATA[
+					function (evt) {
+						this.$_doClick(evt); //call the original method
+						var $n = jq(evt.domTarget),
+	                  		cls = this.getZclass() + '-img-seld',
+	                  		cls2 = this.getZclass() + '-img-over-seld';
+		                  
+						zAu.send(new zk.Event(this, 'onUser',($n.hasClass(cls) || $n.hasClass(cls2))));
+		            }
+            ]]></attribute>
+				
+			</listheader>
+			<listheader label="Gender" />
+			<listheader label="Age" />
+		</listhead>
+		<listitem>
+			<listcell label="Mary" />
+			<listcell label="FEMALE" />
+			<listcell label="18" />
+		</listitem>
+		<listitem>
+			<listcell label="John" />
+			<listcell label="MALE" />
+			<listcell label="20" />
+		</listitem>
+	</listbox>
+</zk>

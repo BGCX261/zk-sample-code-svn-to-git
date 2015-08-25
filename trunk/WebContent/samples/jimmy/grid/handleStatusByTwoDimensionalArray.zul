@@ -1,0 +1,74 @@
+<zk>
+	<zscript><![CDATA[
+		import org.zkoss.zk.ui.Component;
+		import org.zkoss.zk.ui.event.Event;
+		import org.zkoss.zk.ui.event.EventListener;
+		import org.zkoss.zk.ui.util.GenericForwardComposer;
+		import org.zkoss.zul.*;
+		
+		public class Composer extends GenericForwardComposer {
+			private Grid grid;
+			
+			Integer[][] datas = new Integer[][] { new Integer[] { 0, 1, 1, 1 },
+					new Integer[] { 1, 0, 1, 1 }, new Integer[] { 1, 1, 0, 2 },
+					new Integer[] { 1, 1, 2, 0 }, new Integer[] { 1, 2, 1, 1 },
+					new Integer[] { 2, 1, 1, 1 }, };
+		
+			public void doAfterCompose(Component comp) throws Exception {
+				super.doAfterCompose(comp);
+				grid = (Grid) comp.getFellow("grid");
+				grid.setRowRenderer(new RowRenderer() {
+					public void render(Row row, Object data) throws Exception {
+						Integer[] arr = (Integer[]) data;
+						
+						int rowIndex = grid.getRows().getChildren().indexOf(row);
+						int count = 0;
+						for (Integer i : arr) {
+							Div lbl = new Div();
+							if (i.equals(0)) {
+								lbl.setClass("test_class");
+							} else if (i.equals(1)) {
+								lbl.setClass("test_class1");
+							} else if (i.equals(2)) {
+								lbl.setClass("test_class2");
+							}
+							int colIndex = count;
+							lbl.setAttribute("colIndex", colIndex);
+							
+							lbl.addEventListener("onClick", new EventListener() {
+								public void onEvent(Event event) throws Exception {
+									Div lbl = (Div) event.getTarget();
+									int colIndex = (Integer) lbl.getAttribute("colIndex");
+									datas[rowIndex][colIndex] = 2;
+									lbl.setClass("test_class2");
+								}
+							});
+							count++;
+							
+							lbl.appendChild(new Label(lbl.getSclass()));
+							row.appendChild(lbl);
+						}
+					}
+				});
+				
+				grid.setModel(new ListModelArray(datas));
+			}
+		}
+	]]></zscript>
+	<style>
+	.test_class {
+		background-color: red;
+	}
+	.test_class1 {
+		background-color: yellow;
+	}
+	.test_class2 {
+		background-color: green;
+	}
+	</style>
+	<window id="win" apply="Composer">
+		<grid id="grid" height="400px" width="400px"
+			sizedByContent="true">
+		</grid>
+	</window>
+</zk>

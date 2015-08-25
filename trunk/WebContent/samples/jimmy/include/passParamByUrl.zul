@@ -1,0 +1,6 @@
+<zk>
+	<include id="inc"/>
+	<zscript><![CDATA[
+		inc.setSrc("passParamByUrl_page1.zul?id=1");               
+	]]></zscript>
+</zk>

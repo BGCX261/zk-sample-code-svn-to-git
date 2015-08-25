@@ -1,0 +1,39 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+	body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+	<!--  remove white strips between the toolbars	-->
+	.hboxRemoveWhiteStrips td.z-hbox-sep {width: 0; padding:0;}
+</style>
+
+
+		<div sclass="z-toolbar" style="padding:0">
+			<hbox pack="stretch" sclass="hboxRemoveWhiteStrips" width="100%">
+				<toolbar align="start" style="float:left">
+					<button id="btnHelp" label="Help"
+						tooltiptext="help" />
+					<separator orient="vertical" />
+					<separator orient="vertical" />
+					<separator orient="vertical" />
+					<separator orient="vertical" />
+					<separator orient="vertical" />
+					<separator orient="vertical" />
+				</toolbar>
+
+				<toolbar align="center" style="float:left">
+					<button id="btn2" height="20" label="search" />
+					<button id="btn3" height="20" label="print" />
+				</toolbar>
+
+				<toolbar align="end" style="float:right">
+					<button id="btnNew" height="20" label="New" />
+					<button id="btnEdit" height="20" label="Edit" />
+					<button id="btnDelete" height="20" label="Delete" />
+					<button id="btnSave" height="20" label="Save" />
+					<button id="btnClose" height="20" label="Close" />
+				</toolbar>
+			</hbox>
+		</div>
+
+</zk>

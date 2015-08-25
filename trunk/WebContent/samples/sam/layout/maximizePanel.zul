@@ -1,0 +1,80 @@
+<?page title="layout 1" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style>
+		.z-borderlayout { background-color : transparent;
+		background-image : none; padding:0px; margin:0px; }
+
+		.z-north, .z-south, .z-west, .z-center, .z-east {
+		background-color : transparent; background-image : none;
+		border:0 none; padding:0px; margin:0px; }
+	</style>
+	<window title="layout 1" border="normal" width="100%"
+		height="100%">
+		<zscript><![CDATA[
+	Div div = new Div();
+	public void onMaximize(Event event) {
+		Panel panel = (Panel) event.getTarget();
+		Component centerDiv = borderlayout.getParent();
+		if (panel.isMaximized()) {
+			//put a point
+			panel.getParent().insertBefore(div, panel);
+			borderlayout.setVisible(false);
+			centerDiv.appendChild(panel);
+		} else {
+			div.getParent().insertBefore(panel, div);
+			borderlayout.setVisible(true);
+		}
+
+	}
+]]></zscript>
+		<!-- PAGE  -->
+		<borderlayout>
+			<west border="none" margins="2,2,1,2" size="210px"
+				autoscroll="true">
+				<!-- MENU BAR  -->
+			</west>
+			<center border="none" margins="2,1,2,2">
+				<div  height="100%">
+					<borderlayout id="borderlayout" height="100%">
+						<center border="none" margins="0,0,0,0"
+							flex="true">
+							<div>
+								<panel title="panel 1" border="normal"
+									style="margin-bottom:2px;" vflex="2" maximizable="true"
+									collapsible="true" onMaximize="onMaximize(event);">
+									<panelchildren></panelchildren>
+								</panel>
+								<panel title="panel 2" border="normal"
+									style="margin-bottom:2px;" vflex="1" maximizable="true"
+									collapsible="true" onMaximize="onMaximize(event);">
+									<panelchildren></panelchildren>
+								</panel>
+							</div>
+						</center>
+						<east border="none" margins="0,2,0,0"
+							flex="true" size="25%">
+							<div>
+								<panel title="panel 3" border="normal"
+									style="margin-bottom:2px;" vflex="1" maximizable="true"
+									collapsible="true" onMaximize="onMaximize(event);">
+									<panelchildren></panelchildren>
+								</panel>
+								<panel title="panel 4" border="normal"
+									style="margin-bottom:2px;" vflex="1" maximizable="true"
+									collapsible="true" onMaximize="onMaximize(event);">
+									<panelchildren></panelchildren>
+								</panel>
+								<panel title="panel 5" border="normal"
+									style="margin-bottom:2px;" vflex="1" maximizable="true"
+									collapsible="true" onMaximize="onMaximize(event);">
+									<panelchildren></panelchildren>
+								</panel>
+							</div>
+						</east>
+					</borderlayout>
+				</div>
+			</center>
+		</borderlayout>
+		<!-- END PAGE -->
+	</window>
+</zk>

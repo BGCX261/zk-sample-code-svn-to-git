@@ -1,0 +1,19 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+	.z-toolbarbutton-active {
+		background: yellow;
+	}
+</style>
+	<toolbarbutton id="btn" label="A button" />
+	<button label="Click to change toolbar status">
+		<attribute name="onClick">
+			btn.setClass(btn.getZclass() + "-active");
+		</attribute>
+	</button>
+	<button label="Click to remove toolbar status">
+		<attribute name="onClick">
+			btn.setClass(null);
+		</attribute>
+	</button>
+</zk>

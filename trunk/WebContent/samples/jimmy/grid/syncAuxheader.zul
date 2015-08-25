@@ -1,0 +1,27 @@
+<grid>
+	<auxhead id="auxHd">
+		<auxheader label="Q1" />
+		<auxheader label="Q2" />
+		<auxheader label="Q3" />
+	</auxhead>
+	<columns menupopup="auto" xmlns:w="http://www.zkoss.org/2005/zk/client">
+		<attribute w:name="_onColVisi"><![CDATA[
+			function (evt) {
+				this.$_onColVisi(evt); //call the original method
+				var col = zk.Widget.$(evt.currentTarget._col),
+		      		index = col.getChildIndex();
+				zk.Widget.$('$auxHd').getChildAt(index).setVisible(col.isVisible());
+			}
+		]]></attribute>
+		<column label="Jan" />
+		<column label="Feb" />
+		<column label="Mar" />
+	</columns>
+	<rows>
+		<row>
+			<label value="1,000" />
+			<label value="1,100" />
+			<label value="1,200" />
+		</row>
+	</rows>
+</grid>

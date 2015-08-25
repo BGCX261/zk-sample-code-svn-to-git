@@ -1,0 +1,21 @@
+<?page title="Update Tree" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="normal">
+		<hlayout>
+			<textbox id="newNode" />
+			<button label="Add Node">
+				<attribute name="onClick"><![CDATA[
+					// publish
+					EventQueues.lookup("TreeDisplay", EventQueues.APPLICATION, true)
+						.publish(new Event("AddNode", null, newNode.getValue()));
+				]]></attribute>
+			</button>
+		</hlayout>
+	</window>
+</zk>
+
+<!--
+	
+	See display.zul
+	
+-->

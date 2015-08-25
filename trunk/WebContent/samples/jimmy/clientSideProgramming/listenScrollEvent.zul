@@ -1,0 +1,18 @@
+<zk>
+	<div id="myDiv" height="100px" width="100px" style="overflow:auto;" onScroll="msg.value = event.getData();">
+		<div width="500px" height="500px"/>
+	</div>
+	<label id="msg"/>
+	<zscript><![CDATA[
+		String script = "this.$supers(zul.wgt.Div, 'bind_', arguments);"
+					+ "this.domListen_(this.$n(), 'onScroll');";
+		myDiv.setWidgetOverride("bind_","function () {"+script+"}");
+			
+		script = "this.domUnlisten_(this.$n(), 'onScroll');"+
+				"this.$supers(zul.wgt.Div, 'unbind_', arguments);";
+		myDiv.setWidgetOverride("unbind_","function () {"+script+"}");
+		
+		script = "zAu.send(new zk.Event(this, 'onScroll', this.$n().scrollLeft+','+this.$n().scrollTop));";
+		myDiv.setWidgetOverride("_doScroll","function () {"+script+"}");
+	]]></zscript>
+</zk>

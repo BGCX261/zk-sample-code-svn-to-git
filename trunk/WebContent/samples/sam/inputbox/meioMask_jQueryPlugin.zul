@@ -1,0 +1,62 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:w="client">
+	<?script src="./js/jquery.meio.mask.js" ?>
+	<div style="margin: 10px;">
+		<label multiline="true">
+			Demo jQuery plug: meioMask
+			http://www.meiocodigo.com/projects/meiomask/
+		</label>
+	</div>
+	<window title="Set mask from client" border="normal">
+		<textbox id="input"></textbox>
+		<div>
+			<button label="Change mask to ‘***:***’">
+				<attribute w:name="onClick">
+					jq(this.$f('input').$n()).setMask('***:***').val('');
+				</attribute>
+			</button>
+			<button label="Change mask to ‘(aaa) **-9999′">
+				<attribute w:name="onClick">
+					jq(this.$f('input').$n()).setMask('(aaa)
+					**-9999').val('');
+				</attribute>
+			</button>
+			<button label="unset the mask">
+				<attribute w:name="onClick">
+					jq(this.$f('input').$n()).unsetMask().val('');
+				</attribute>
+			</button>
+		</div>
+	</window>
+	<window title="Set mask from server" border="normal">
+		<script type="text/javascript">
+			function setMask(uuid, mask) { 
+				var selector = "#" + uuid;
+				jq(selector).setMask(mask).val(''); 
+			} 
+			function unsetMask(uuid) { 
+				jq('#' + uuid).unsetMask().val(''); 
+			}
+		</script>
+		<textbox id="input2"></textbox>
+		<div>
+			<button label="Change mask to ‘***:***’">
+				<attribute name="onClick">
+	Clients.evalJavaScript("setMask('" + input2.getUuid() + "', '***:***')");
+</attribute>
+			</button>
+			<button label="Change mask to ‘(aaa) **-9999′">
+				<attribute name="onClick">
+	Clients.evalJavaScript("setMask('" + input2.getUuid()
+			+ "', '(aaa) **-9999')");
+</attribute>
+			</button>
+			<button label="unset the mask">
+				<attribute name="onClick">
+	Clients.evalJavaScript("unsetMask('" + input2.getUuid() + "')");
+</attribute>
+			</button>
+		</div>
+	</window>
+
+</zk>

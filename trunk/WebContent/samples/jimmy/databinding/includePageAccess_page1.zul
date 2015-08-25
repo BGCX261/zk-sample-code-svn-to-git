@@ -1,0 +1,4 @@
+<zk>	
+	<label value="inner:"/>
+	<textbox value="@{person.name}"/>
+</zk>

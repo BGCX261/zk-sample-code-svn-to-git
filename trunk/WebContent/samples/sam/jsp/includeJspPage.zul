@@ -1,0 +1,7 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<window title="Include another Jsp Page" border="normal">
+<include src="databinding.jsp" mode="defer"/>
+</window>
+</zk>

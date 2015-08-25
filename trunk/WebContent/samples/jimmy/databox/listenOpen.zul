@@ -1,0 +1,19 @@
+<zk>
+	<script type="text/javascript"><![CDATA[
+		zk.afterLoad('zul.db', function () {
+			var _xCalendarPop = {}
+			zk.override(zul.db.CalendarPop.prototype, _xCalendarPop, {
+				open: function () {
+					_xCalendarPop.open.apply(this, arguments); //call the original method
+					zAu.send(new zk.Event(this.parent, 'onUser', this.isOpen()));
+				},
+				close: function (silent) {
+					_xCalendarPop.close.apply(this, arguments); //call the original method
+					zAu.send(new zk.Event(this.parent, 'onUser', this.isOpen()));
+				}
+			});
+		});
+	]]></script>
+	<datebox onUser="lb.value = String.valueOf(event.getData());"></datebox>
+	<label id="lb"/>
+</zk>

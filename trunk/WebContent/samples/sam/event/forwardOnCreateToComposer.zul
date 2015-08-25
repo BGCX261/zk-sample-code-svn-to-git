@@ -1,0 +1,23 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<label multiline="true">
+	<attribute name="value">
+		Demo forward onCreate event to composer
+	
+		Use composerId$composer can get the composer, the composer is saved in component by setAttribute()
+		This is done by ZK, in Components.java -> wireController
+	</attribute>
+</label>
+<zscript><![CDATA[ 
+ import org.zkoss.zk.ui.util.GenericForwardComposer;
+ class ForwardOnCreateComposer extends GenericForwardComposer {
+	 
+	 public void onCreateMyLabel(CreateEvent evt) {
+		 System.out.println("create: " + evt.getTarget());
+	 }
+ }
+]]></zscript>
+<window id="win" title="new page title" border="normal" apply="ForwardOnCreateComposer">
+	<label forward="onCreate=win$composer.onCreateMyLabel" value="Forward to composer"></label>
+</window>
+</zk>

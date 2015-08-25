@@ -1,0 +1,29 @@
+<?page title="Get DOM element of widget in javascript" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<div>
+		<textbox id="t" />
+		<button label="Go" w:onClick='this.$f("t").$n().style.background="#BFFFBF"' />
+	</div>
+	<div>
+		<combobox id="c" />
+		<button label="Go" w:onClick='this.$f("c").$n("real").style.background="#BFFFBF"' />
+	</div>
+</zk>
+
+<!--
+	
+	2010/08/04
+	Simon
+	
+	This zul shows the use case of $f(), $n() methods in zk.Widget. These two
+	methods are the access keys of Client Side Programming. You can use a DOM
+	element inspector (FireBug, Dragonfly, etc) to see what elements are given
+	by textbox and combobox.
+	
+	Version:
+		ZK 5.0.3 CE
+	
+	Keyword:
+		*client, *widget, *DOM
+	
+-->

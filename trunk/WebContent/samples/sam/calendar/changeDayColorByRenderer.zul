@@ -1,0 +1,12 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<script><![CDATA[
+zk.afterLoad('zul.db', function(){
+	zul.db.Renderer.cellHTML = function (cal, y, m, day, monthofs) {
+		return '<a href="javascript:;" style="color:red;">' + day + '</a>';
+	}; 
+});
+]]></script>
+<calendar id="cal">
+</calendar>
+</zk>

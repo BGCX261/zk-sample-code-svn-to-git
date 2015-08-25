@@ -1,0 +1,20 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="http://www.zkoss.org/2005/zk/native">
+<zscript><![CDATA[
+class EventsComposer extends org.zkoss.zk.ui.util.GenericForwardComposer {
+	Window mainwin;
+	Label textLbl;
+
+	public void onClickCircle$mainwin(Event evt) {
+		System.out.println("Event receieved " + evt.getName());
+		Object[] data = (Object[])((ForwardEvent)evt).getOrigin().getData();
+		textLbl.setValue("Clicked on " + data[0]);
+	}
+}
+]]></zscript>
+<window id="mainwin" title="Use object" border="normal" width="300px" height="300px" apply="EventsComposer">
+	<label id="textLbl" value="SVG with Events"></label>
+	<n:object data="./svgWithEvents.svg" height="100%" width="100%"></n:object>
+</window>
+</zk>

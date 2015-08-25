@@ -1,0 +1,66 @@
+<zk xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<?script charset="UTF-8" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3&mkt=en-us"?>
+	<zscript><![CDATA[
+	String json2 = "[{\"Lat\":\"51.5472\",\"Long\":\"-0.0555\",\"Title\":\"pin-title1\",\"Dsp\":\"pin-title1\"},{\"Lat\":\"51.58\",\"Long\":\"-0.055404\",\"Title\":\"pin-title2\",\"Dsp\":\"pin-title2\"}]";
+]]></zscript>
+	<script>
+		<![CDATA[ var map;
+
+		function MouseShapeHandler(e) { var msg; }
+
+		function addPins(fromServerJSON) { 
+			var ary = fromServerJSON || ${json2}; 
+				size = ary.length;
+		for (var i = 0; i < size; i++) { 
+			var map = window._bingMap,
+				loc = ary[i], 
+				latVal = parseFloat(loc.Lat), 
+				longVal = parseFloat(loc.Long), 
+				title =	loc.Title, dsp = loc.Dsp;
+
+			var pin = new VEShape(VEShapeType.Pushpin, new VELatLong(latVal, longVal)); 
+			pin.SetTitle(title); 
+			pin.SetDescription(dsp);
+			map.AddShape(pin); 
+			map.SetCenterAndZoom(new VELatLong(latVal, longVal), 12); } 
+		}
+
+		function removePins() { map.DeleteAllShapes(); } ]]>
+	</script>
+
+	<window border="none" sizable="true" id="winTwMap">
+		<groupbox width="99%" height="350px">
+			<h:div id="myMap"
+				style="width:100%; height:350px;position:relative;">
+				<attribute w:name="onBind">
+					map = new VEMap('myMap'); map.LoadMap(); 
+					window._bingMap = map;
+					map.AttachEvent("onmouseover", MouseShapeHandler);
+					addPins();
+				</attribute>
+			</h:div>
+		</groupbox>
+
+
+
+		<groupbox>
+			<combobox id="timePeriod" readonly="true">
+				<comboitem label="Item 1" value="1" />
+				<comboitem label="Item 2" value="2" />
+				<comboitem label="Item 3" value="3" />
+				<attribute w:name="onChange">
+					removePins(); 
+				</attribute>
+				<attribute name="onChange">
+					json2 = "[{\"Lat\":\"51.5483\",\"Long\":\"-0.0559\",\"Title\":\"pin-title1\",\"Dsp\":\"pin-title1\"}]";
+					Clients.evalJavaScript("addPins(" + json2 + ");");
+				</attribute>
+			</combobox>
+		</groupbox>
+
+
+	</window>
+
+</zk>
+

@@ -1,0 +1,26 @@
+<zk xmlns:w="client">
+	<button label="Go" use="samples.component.MouseDownButton">
+		<attribute w:name="onMouseDown"><![CDATA[
+			this.fire('onMyEvent');
+		]]></attribute>
+		<attribute name="onMyEvent"><![CDATA[
+			lb.value = "onMouseDown fired!";
+		]]></attribute>
+	</button>
+	<label id="lb" />
+</zk>
+
+<!--
+	
+	2010/08/31 (Tue)
+	Simon
+	
+	This zul shows how to port onMouseDown/onMouseUp event to server side.
+	
+	Dependency
+		samples.component.MouseDownButton
+	
+	Version
+		ZK 5.0.4
+	
+-->

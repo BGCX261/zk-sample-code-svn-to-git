@@ -1,0 +1,18 @@
+<panel height="247px" title="Comptes" border="normal">
+	<panelchildren>
+		<listbox model="@{allComptes}"
+			forward="onSelect=onShowResult">
+			<listhead sizable="true">
+				<listheader label="Code Compte" width="90px"
+					sort="auto" />
+				<listheader label="First Name" width="90px" sort="auto" />
+				<listheader label="Last Name" width="90px" sort="auto" />
+			</listhead>
+			<listitem height="28px" self="@{each=comptes}" value="@{comptes}">
+				<listcell label="@{comptes.id}" />
+				<listcell label="@{comptes.nom}" />
+				<listcell label="@{comptes.prenom}" />
+			</listitem>
+		</listbox>
+	</panelchildren>
+</panel>

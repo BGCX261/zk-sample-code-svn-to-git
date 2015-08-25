@@ -1,0 +1,26 @@
+<?component name="customdiv" extends="div" class="CustomDiv"?>
+<zk>
+	<zscript><![CDATA[
+		import org.zkoss.zk.ui.Component;
+		import org.zkoss.zul.Div;
+		
+		public class CustomDiv extends Div {
+			Div childDiv = new Div();
+		
+			public CustomDiv() {
+				childDiv.setStyle("height: 100px; width: 100px; border: 1px solid #000; margin: 20px;");
+				this.setStyle("height: 200px; width: 200px; border: 1px solid #000;");
+				super.appendChild(childDiv);
+			}
+			
+			public boolean insertBefore(Component newChild, Component refChild) {
+				if (childDiv == newChild) 
+					return super.insertBefore(newChild, refChild);
+				return childDiv.insertBefore(newChild, refChild);
+			}
+		}
+	]]></zscript>
+	<customdiv>
+		<label value="abc" />
+	</customdiv>
+</zk>

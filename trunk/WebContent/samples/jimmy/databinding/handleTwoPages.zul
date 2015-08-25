@@ -1,0 +1,94 @@
+<zk>
+	<zscript><![CDATA[
+		import java.util.*;
+		
+		import org.zkoss.zk.ui.*;
+		import org.zkoss.zk.ui.event.ForwardEvent;
+		import org.zkoss.zk.ui.util.GenericForwardComposer;
+		import org.zkoss.zkplus.databind.AnnotateDataBinder;
+		import org.zkoss.zul.*;
+		
+		public class Composer extends GenericForwardComposer {
+		
+			private Div div;
+			private List allComptes;
+			private Comptes editCompte;
+			private AnnotateDataBinder binder;
+			private String page1 = "handleTwoPages_page1.zul";
+			private String page2 = "handleTwoPages_page2.zul";
+		
+			public void doAfterCompose(Component comp) throws Exception {
+				super.doAfterCompose(comp);
+				div = (Div) comp.getFellow("div");
+				
+				allComptes = new ArrayList();
+				allComptes.add(new Comptes(0, "Jimmy", "Shiau"));
+				allComptes.add(new Comptes(1, "Katrina", "Lin"));
+				Executions.createComponents(page1, div, null);
+				binder = new AnnotateDataBinder(div);
+				binder.bindBean("allComptes", allComptes);
+				binder.loadAll();
+			}
+		
+			public void onShowResult(ForwardEvent event) {
+				Listbox listbox = (Listbox) event.getOrigin().getTarget();
+				editCompte = (Comptes) listbox.getSelectedItem().getValue();
+				div.getChildren().clear();
+				Executions.createComponents(page2, div, null);
+				binder = new AnnotateDataBinder(div, false);
+				binder.bindBean("editCompte", editCompte);
+				binder.loadAll();
+			}
+		
+			public void onBack() {
+				div.getChildren().clear();
+				Executions.createComponents(page1, div, null);
+				binder = new AnnotateDataBinder(div);
+				binder.bindBean("allComptes", allComptes);
+				binder.loadAll();
+			}
+		
+			public class Comptes {
+				private int id;
+				private String nom, prenom;
+		
+				public Comptes(int id, String nom, String prenom) {
+					super();
+					this.id = id;
+					this.nom = nom;
+					this.prenom = prenom;
+				}
+		
+				public int getId() {
+					return id;
+				}
+		
+				public void setId(int id) {
+					this.id = id;
+				}
+		
+				public String getNom() {
+					return nom;
+				}
+		
+				public void setNom(String nom) {
+					this.nom = nom;
+				}
+		
+				public String getPrenom() {
+					return prenom;
+				}
+		
+				public void setPrenom(String prenom) {
+					this.prenom = prenom;
+				}
+		
+			}
+		}
+
+	]]></zscript>
+	<window title="BillPayment" border="normal"
+		apply="Composer">
+		<div id="div"/>
+	</window>
+</zk>

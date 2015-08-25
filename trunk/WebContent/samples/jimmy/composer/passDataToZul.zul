@@ -1,0 +1,29 @@
+<zk>
+	<zscript><![CDATA[
+		import org.zkoss.zk.ui.util.GenericForwardComposer;
+		
+		public class Composer extends GenericForwardComposer{
+		
+			
+			public String getLableValue(){
+				return "My label";
+			}
+			
+			public List getListitems(){
+				List result = new ArrayList();
+				result.add("Item 1");
+				result.add("Item 2");
+				result.add("Item 3");
+				return result;
+			}
+			
+			
+		}
+	]]></zscript>
+	<window id="win" apply="Composer">
+		<label value="${win$Composer.lableValue}"/>
+		<listbox width="200px">
+			<listitem label="${each}" forEach="${win$Composer.listitems}"></listitem>
+		</listbox>	
+	</window>
+</zk>

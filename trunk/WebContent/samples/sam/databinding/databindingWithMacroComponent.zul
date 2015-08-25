@@ -1,0 +1,22 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?component name="personmacro" macroURI="personmacro.zul" class="samples.component.PersonMacroComponent"?>
+<zk><zscript><![CDATA[ ]]></zscript>
+<label multiline="true">
+	<attribute name="value">
+	<![CDATA[
+	** Note **
+	1. When macro was create, it was create before doAfterComposer()
+	2. Data binding bind data onAfterComposer()
+	
+	If use a macro use <textbox id="mc_firstName" value="${arg.firstName}"/>
+	It DOES NOT set value, because when it create, it was create before data binding
+	
+	If wanna to use databing on macro, need to use deinfe a class and setXXX() for data binding to work
+	]]>
+	</attribute>
+</label>
+<window id="win" title="new page title" border="normal" apply="samples.controller.MacroComponentDatabingCtrl">
+	<label value="@{win$composer.person.firstName}"></label>
+	<personmacro id="id" firstName="@{win$composer.person.firstName}" ></personmacro>
+</window>
+</zk>

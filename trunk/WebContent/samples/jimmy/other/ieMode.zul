@@ -1,0 +1,11 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?meta http-equiv="X-UA-Compatible" content="IE=8" if="${c:browser('ie8-')}"?>
+<zk>
+	* IE=5: "Quirks" mode
+	<separator/>
+    * IE=7: "Standards" mode
+    <separator/>
+    * IE=8: Internet Explorer 8 Standards mode
+    <separator/>
+    * IE=edge: Uses latest standards that Internet Explorer 8 and any future versions of the browser support. Not recommended for production sites.
+</zk>

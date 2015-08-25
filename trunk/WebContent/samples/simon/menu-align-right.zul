@@ -1,0 +1,38 @@
+<zk>
+	<style>
+.dm-menuitem {
+	width: 100%;
+}
+.dm-menuitem .z-menu-item-cnt {
+	display: none;
+}
+	</style>
+	<window title="Menubar Test" border="normal" width="500px" height="500px">
+		<menubar>
+			<menuitem sclass="dm-menuitem" />
+			<menu label="Menu 1" />
+			<menu label="Menu 2" />
+			<menu label="Menu 3" />
+		</menubar>
+	</window>
+</zk>
+
+<!--
+	
+	2010/06/30
+	Simon
+	
+	This zul provides a work-around that aligns Menu/Menuitem to the right on
+	the Menubar.
+	
+	See also:
+		How to align Menu - Menuitem to the right?
+		http://www.zkoss.org/forum/listComment/12877
+	
+	Version:
+		ZK 5.0.3
+	
+	Keyword:
+		*alignment, *menubar
+	
+-->

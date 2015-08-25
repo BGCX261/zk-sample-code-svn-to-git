@@ -1,0 +1,27 @@
+<panel height="600px" title="Modification" border="normal">
+	<panelchildren>
+		<grid>
+			<rows>
+				<row>
+					<label>Code Compte :</label>
+					<textbox readonly="true"
+						value="@{editCompte.id}" />
+				</row>
+				<row>
+					<label>First Name :</label>
+					<textbox
+						value="@{editCompte.nom, save-when='updateBtn.onClick', access='both'}" />
+				</row>
+				<row>
+					<label>Last Name :</label>
+					<textbox
+						value="@{editCompte.prenom, save-when='updateBtn.onClick', access='both'}" />
+				</row>
+				<row>
+					<button id="updateBtn" label="Valider" width="125px" forward="onClick=onBack"/>
+					<button label="Annuler" width="125px" forward="onClick=onBack"/>
+				</row>
+			</rows>
+		</grid>
+	</panelchildren>
+</panel>

@@ -1,0 +1,19 @@
+<zk>
+	<zscript><![CDATA[
+		Component comp;
+	]]></zscript>
+	<window id="win" border="none" width="300px">
+	</window>
+	<button label="add file upolad">
+		<attribute name="onClick"><![CDATA[
+			comp = Executions.createComponentsDirectly("<input xmlns=\"http://www.w3.org/1999/xhtml\" type=\"file\"/>","zul",win,null);
+		]]></attribute>
+	</button>
+	<button id="btn" label="get text" onUser='alert(org.zkoss.lang.Objects.toString(event.data));'>
+		<attribute name="onClick"><![CDATA[
+			if (comp == null) return;
+			String script = "zAu.send(new zk.Event(zk.Widget.$('$btn'), 'onUser', jq('"+comp.getUuid()+"',zk)[0].value));";
+			Clients.evalJavaScript(script);
+		]]></attribute>
+	</button>
+</zk>

@@ -1,0 +1,39 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<?script charset="UTF-8" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3&mkt=en-us"?>
+	<zscript><![CDATA[
+		import samples.dummy.MapPinGenerator;
+		String json2 = MapPinGenerator.getLongitudesJson();
+	]]></zscript>
+	<script><![CDATA[
+		function addPins(map) {
+			var ary = ${json2},
+				size = ary.length;
+			for (var i = 0; i < size; i++) {
+				var loc = ary[i],
+					latVal = parseFloat(loc.Lat),
+					longVal = parseFloat(loc.Long),
+					title = loc.Title,
+					dsp = loc.Dsp;
+				
+				var pin = new VEShape(VEShapeType.Pushpin, new VELatLong(latVal, longVal));
+				pin.SetTitle(title);
+				pin.SetDescription(dsp);
+				map.AddShape(pin);
+				map.SetCenterAndZoom(new VELatLong(latVal, longVal), 12);
+			}
+		}
+	]]></script>
+	<window title="Bing Map" border="normal" height="380px" width="380px">
+		<h:div id="myMap" style="width:320px; height:320px;position:relative;">
+			<attribute w:name="onBind">
+				var map = new VEMap('myMap');
+				map.LoadMap();
+				this.map = map;
+				addPins(map);
+			</attribute>
+		</h:div>
+	</window>
+</zk>

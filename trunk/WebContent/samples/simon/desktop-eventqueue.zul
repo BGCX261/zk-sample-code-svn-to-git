@@ -1,0 +1,52 @@
+<?page title="Desktop EventQueue" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Desktop EventQueue" border="normal" height="300px">
+		<borderlayout>
+			<center>
+				<window title="Window 1" border="normal"
+					apply="samples.eventqueue.Composer1">
+					Change my nickname:
+					<textbox id="textbox1" value="Tinyfox" />
+				</window>
+			</center>
+			<west size="20%">
+				<window title="Window 2" border="normal"
+					apply="samples.eventqueue.Composer2">
+					<label id="label2" value="Hello, Tinyfox!" />
+				</window>
+			</west>
+			<south size="20%">
+				<window title="Window 3" border="normal"
+					apply="samples.eventqueue.Composer3">
+					<label id="label3" value="Welcome, Tinyfox!" />
+				</window>
+			</south>
+		</borderlayout>
+	</window>
+</zk>
+
+<!--
+	
+	2010/06/15
+	Simon
+	
+	This zul demonstrates how composers communicate with each other by the use
+	of desktop EventQueue.
+	
+	Dependency:
+		Java classes: 
+			samples.eventqueue.Composer1
+			samples.eventqueue.Composer2
+			samples.eventqueue.Composer3
+	
+	See also:
+		Composer as delegate - ZK5
+		http://www.zkoss.org/forum/listComment/12750
+	
+	Version:
+		ZK 5.0.3 CE
+	
+	Keyword:
+		*eventqueue, *composer, *access
+	
+-->

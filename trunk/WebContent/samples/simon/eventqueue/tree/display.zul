@@ -1,0 +1,27 @@
+<?page title="Display Tree" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Tree with EventQueue" border="normal" 
+		apply="samples.eventqueue.tree.TreeDisplayController">
+		<tree id="tree" />
+	</window>
+</zk>
+
+<!--
+	
+	2010/08/30 (Mon)
+	Simon
+	
+	This zul shows how to update a tree via EventQueue.
+	
+	See Also
+		Solving "IllegalStateException: Components can be accessed only in event listeners" in zk 5.0.x
+		http://www.zkoss.org/forum/listComment/13463
+	
+	Dependency
+		control.zul
+		samples.eventqueue.tree.TreeDisplayConroller
+	
+	Version
+		ZK 5.0.4 CE 
+	
+-->

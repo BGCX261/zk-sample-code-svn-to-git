@@ -1,0 +1,8 @@
+<zk >
+	<script type="text/javascript"><![CDATA[
+		function log(){
+			zk.log(1);
+		}
+	]]></script>
+	<button label="log" xmlns:w="http://www.zkoss.org/2005/zk/client" w:onClick="log();"/>
+</zk>

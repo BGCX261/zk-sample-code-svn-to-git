@@ -1,0 +1,40 @@
+<zk>
+	<script defer="true"><![CDATA[
+		zul.inp.Combobox.prototype.slideDown_ = function(pp) {
+			pp.style.visibility = "true";
+			pp.style.display = "block";
+		};
+		zul.inp.Bandbox.prototype.slideDown_ = zul.inp.Combobox.prototype.slideDown_;
+	]]></script>
+	<combobox>
+		<comboitem>Comboitem 1</comboitem>
+		<comboitem>Comboitem 2</comboitem>
+		<comboitem>Comboitem 3</comboitem>
+	</combobox>
+	<bandbox>
+		<bandpopup>
+			<vbox>
+				<label>Label 1</label>
+				<label>Label 2</label>
+				<label>Label 3</label>
+			</vbox>
+		</bandpopup>
+	</bandbox>
+</zk>
+
+<!--
+	
+	2010/09/03 (Fri)
+	Simon
+	
+	This zul shows how to change the default slide down/up effect of combobox
+	and bandbox.
+	
+	Version
+		ZK 5.0.4 2010090213
+	
+	See Also:
+		ZK5 Combobox/Bandbox - slideDown animate effect
+		http://www.zkoss.org/forum/listComment/12606
+	
+-->

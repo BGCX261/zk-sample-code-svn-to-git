@@ -1,0 +1,54 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1', {'packages':['piechart']});
+      
+      
+      // Callback that creates and populates a data table, 
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart(divUuid, workInp, eatInp, commuteInp, watchInp, sleepInp) {
+
+      // Create our data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Task');
+        data.addColumn('number', 'Hours per Day');
+        data.addRows([
+          ['Work', workInp],
+          ['Eat', eatInp],
+          ['Commute', commuteInp],
+          ['Watch TV', watchInp],
+          ['Sleep', sleepInp]
+        ]);
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById(divUuid));
+        chart.draw(data, {width: 400, height: 240, is3D: true, title: 'My Daily Activities'});
+      }
+    </script>
+<window title="new page title" border="normal">
+<hbox>
+	<label value="Work"></label> <intbox id="workInp"></intbox>
+	<label value="Eat"></label> <intbox id="eatInp"></intbox>
+	<label value="Commute"></label> <intbox id="commuteInp"></intbox>
+	<label value="Watch"></label> <intbox id="watchInp"></intbox>
+	<label value="Sleep"></label> <intbox id="sleepInp"></intbox>
+	<button label="Create Charts">
+		<attribute w:name="onClick">
+			var workInp = this.$f().workInp.getValue(),
+				eatInp = this.$f().eatInp.getValue(),
+				commuteInp = this.$f().commuteInp.getValue(),
+				watchInp = this.$f().watchInp.getValue(),
+				sleepInp = this.$f().sleepInp.getValue(),
+				divUuid =  this.$f().chart.uuid;
+			drawChart(divUuid, workInp, eatInp, commuteInp, watchInp, sleepInp);
+		</attribute>
+	</button>
+</hbox>
+<div id="chart"></div>
+
+</window>
+</zk>

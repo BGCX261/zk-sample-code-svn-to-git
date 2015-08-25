@@ -1,0 +1,35 @@
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+	<window title="Livedata Demo" border="normal">
+		<zscript><![CDATA[	
+			String[] data = new String[30];
+			for (int j = 0; j < data.length; ++j) {
+				data[j] = "option " + j;
+			}
+			ListModel strset = new SimpleListModel(data);
+		]]></zscript>
+		<hbox>
+			<listbox width="200px" rows="10" model="${strset}">
+				<attribute w:name="_doScroll"><![CDATA[
+					function () { 
+						this.$_doScroll();
+						this.nextSibling.ebody.scrollTop = this._currentTop;
+					}
+				]]></attribute>
+				<listhead>
+					<listheader label="Load on demend" />
+				</listhead>
+			</listbox>
+			<listbox width="200px" rows="10" model="${strset}">
+				<attribute w:name="_doScroll"><![CDATA[
+					function () { 
+						this.$_doScroll();
+						this.previousSibling.ebody.scrollTop = this._currentTop;
+					}
+				]]></attribute>
+				<listhead>
+					<listheader label="Load on demend 2" />
+				</listhead>
+			</listbox>
+		</hbox>
+	</window>
+</zk>

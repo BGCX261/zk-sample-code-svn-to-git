@@ -1,0 +1,27 @@
+<zk>
+	<zscript><![CDATA[
+		ArrayList data = new ArrayList();
+		for (int j = 0; j < 5; ++j) {
+			data.add("option " + j);
+		}
+		ListModelList strset = new ListModelList(data);
+		void change(int num) {
+			ArrayList data = new ArrayList();
+	
+			for (int j = 0; j < num; ++j) {
+				data.add("option " + j);
+			}
+			strset.clear();
+			strset.addAll(data);
+		}
+	]]></zscript>
+	<button label='10' onClick='change(10)' />
+	<button label='20' onClick='change(20)' />
+	<button label='30' onClick='change(30)' />
+	<listbox id="listbox" width="200px" model="${strset}">
+		<listhead>
+			<listheader label="Load on demend" />
+		</listhead>
+	</listbox>
+</zk>
+

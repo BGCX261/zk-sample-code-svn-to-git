@@ -1,0 +1,25 @@
+<zk>
+	<button label="open window">
+		<attribute name="onClick"><![CDATA[
+			String offset = "100px";
+			Window win = new Window("My win", "normal", true);
+			boolean hasInit = false;
+			win.addEventListener("onMove",new org.zkoss.zk.ui.event.EventListener() {					
+				public void onEvent(Event event) throws Exception {
+					MoveEvent evt = (MoveEvent)event;
+					String top = evt.getTop();
+					if (!offset.equals(evt.getTop()) && !hasInit) {
+						self.setTop(offset);
+						hasInit = true;						
+					}
+				}});
+			
+			win.setPosition("center");
+			win.setWidth("300px");
+			win.setHeight("300px");
+			win.setPage(page);
+			win.doHighlighted();
+			
+		]]></attribute>
+	</button>
+</zk>

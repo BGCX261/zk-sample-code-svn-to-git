@@ -1,0 +1,25 @@
+<window title='Test of forEach="a, b, c"'>
+	
+	<variables a="apple" c="cola"/>
+	
+	<label value="${forEachStatus.index} ${each}"
+		forEach="void, ${a}, orange, ${c}, (a, (${a}, 1), 2), ((a),"
+		forEachBegin="1"/>
+	
+
+	<separator bar="true"/>
+	<variables vars="void, ${a}, orange, ${c}, (a, (${a}, 1), 2), ((a),"
+		composite="list"/>
+	
+	<label value="${forEachStatus.index} ${each}" forEach="${vars}"
+		forEachBegin="1"/>
+	
+
+	<separator bar="true"/>
+	<variables vars="a=void, b=${a}, c=orange, d=${c}, e=(a, (${a}, 1), 2), f=((a),"
+		composite="map"/>
+	
+	<label value="${forEachStatus.index} ${each.value}" forEach="${vars}"
+		forEachBegin="1"/>
+	
+</window>

@@ -1,0 +1,67 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<label multiline="true">
+	<attribute name="value">
+		Demo how to auto sort when user add data to model
+	</attribute>
+</label>
+<zscript><![CDATA[
+ import org.zkoss.zk.ui.*;
+ import org.zkoss.zk.ui.util.*;
+ class Person {
+	 String _name;
+	 public Person(String name) {
+		 _name = name;
+	 }
+	 public String getName() {
+		 return _name;
+	 }
+ } 
+
+ class MyComposer extends GenericForwardComposer{
+	 Listbox lb;
+	 Textbox input;
+	 AnnotateDataBinder binder;
+	 List list = new ArrayList();
+	 
+	 
+	 public void doAfterCompose(Component comp) throws Exception {
+		 super.doAfterCompose(comp);
+		 
+		list = new ArrayList();
+		list.add(new Person("Jim"));
+		list.add(new Person("Apple"));
+		list.add(new Person("Soga"));
+		list.add(new Person("Bobo"));
+		 
+		 //bind all components inside "comp"
+		 binder = new AnnotateDataBinder(comp);
+		 binder.bindBean("persons", list);
+		 binder.loadAll();
+	 }
+	 
+	 public void onClick$btn(Event evt) {
+		 String name = input.getValue();
+		 if (!"".equals(name)) {
+			 list.add(new Person(name));
+			 Collections.sort(list, new Comparator() {
+				 public int compare(Object o1, Object o2) {
+					 Person p1 = (Person)o1;
+					 Person p2 = (Person)o2;
+					 return p1.getName().compareTo(p2.getName());
+				 }
+			 });
+			 binder.loadAll();
+		 }
+	 }
+ }
+]]></zscript>
+<window title="new page title" border="normal" apply="MyComposer">
+	<listbox id="lb" model="@{persons}" height="200px">
+		<listitem self="@{each=entry}">
+			<listcell label="@{entry.name}"></listcell>
+		</listitem>
+	</listbox>
+	<textbox id="input"></textbox><button id="btn" label="Add Name"></button>
+</window>
+</zk>

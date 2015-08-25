@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<window style="border:normal;background-color:#abcdef;width:1000px;height:500px">
+<style dynamic="true">
+.z-hbox-sep {display:none;}
+.z-vbox-sep {display:none;}
+</style>
+<zscript>
+	public void drop(Event event) {
+		Window win = (Window)event.getTarget();
+		int xindex = win.getParent().getChildren().indexOf(win);
+		Hbox hbox = (Hbox)win.getParent();
+		int yindex = hbox.getParent().getChildren().indexOf(hbox);
+		
+		int xpos = (xindex * 50);
+		int ypos = (yindex * 50);
+		
+		Window drg = (Window)((DropEvent)event).getDragged();
+		drg.setStyle("position:absolute;top:" + ypos + "px;left:" + xpos + "px;background-color:#fedcba;");
+	}
+
+</zscript>
+
+	<label value="DROP IN BLUE AREA NOT ALLOWED"/>
+	<window id="canvas" style="position:fixed;top:100px;left:100px">
+	<window id="drg" title="Drag and drop me" style="position:absolute;top:50px;left:50px;background-color:#fedcba;" width="150px" height="50px" border="normal" draggable="true"  xmlns:w="http://www.zkoss.org/2005/zk/client">
+		<attribute w:name="getDragOptions_"><![CDATA[
+			function (map) {
+				map.starteffect = function (dg) {
+					dg._oldDisplay = dg.handle.style.display;
+					dg.handle.style.display = "none";
+				}
+				map.endeffect = function(dg, evt) {
+					var pt = [evt.pageX, evt.pageY],
+						wgt = zk.DnD.getDrop(dg, pt, evt);
+					if (wgt) {
+						//drop at new position
+						wgt.onDrop_(dg, evt);
+					} else {
+						//can not drop here, set display
+						dg.handle.style.display = dg._oldDisplay;
+					}
+				}
+				return map;
+			}
+		]]></attribute>
+	</window>
+	<vbox>
+		<hbox>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+		</hbox>
+		<hbox>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+		</hbox>
+		<hbox>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+			<window droppable="true" onDrop="drop(event)" border="normal" height="50px" width="50px" style="background-color:#FFFFFF"/>
+		</hbox>
+	</vbox>
+	</window>
+</window>

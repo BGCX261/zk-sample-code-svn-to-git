@@ -1,0 +1,21 @@
+<?page id="P"?>
+<zk>
+	<window id="A">
+		<window id="B">
+			<label id="C" value="Hello!" />
+		</window>
+		<grid id="g1">
+			<rows id="h1">
+				<row id="i1">
+					<textbox id="txtid" value="xxxx" />
+				</row>
+			</rows>
+		</grid>
+
+		<button label="show value">
+			<attribute name="onClick"><![CDATA[
+				alert(Path.getComponent("//P/A/txtid").value);
+			]]></attribute>
+		</button>
+	</window>
+</zk>
